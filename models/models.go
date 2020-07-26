@@ -5,12 +5,14 @@ import (
 )
 
 type Account struct {
+	Id string;
 	InstitutionCode string;
 	Number string;
 	Type string;
 }
 
 type AccountTransaction struct {
+	Id string;
 	InstitutionCode string;
 	Account *Account;
 	TransactionId string;

@@ -43,9 +43,9 @@ func TestUwcuTransaction(testRun *testing.T) {
 func TestChaseTransaction(testRun *testing.T) {
 	assumedContext := &AccountImportContext {
 		&models.Account {
-			"chase",
-			"864210",
-			"CC",
+			InstitutionCode: "chase",
+			Number: "864210",
+			Type: "CC",
 		},
 	}
 	actualTransactions := ParseAndValidateCsv("chase", "test-data/test-chase-transaction-file.csv", assumedContext)
