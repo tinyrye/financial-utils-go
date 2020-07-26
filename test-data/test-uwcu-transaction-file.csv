@@ -1,0 +1,9 @@
+AccountNumber,AccountType,Posted Date,Amount,Description,Check Number,Category,Balance,Note
+8675309,CK,7/25/2020,($200.00),Credit Card Payment,,Credit Card Payment,$101.62,
+ABCDEF-123456,CC,7/24/2020,($6.53),My Fav Coffee Shop,,Dining Out,,
+ABCDEF-123456,CC,7/24/2020,($53.97),Brewpub XYZ,,Uncategorized,,
+ABCDEF-123456,CC,7/24/2020,($26.00),Brewpub XYZ,,Dining Out,,
+ABCDEF-123456,CC,7/24/2020,($31.58),Finance Charge,,Finance Charge,,
+ABCDEF-123456,CC,7/23/2020,($11.75),Chocolate Shop,,Dining Out,,
+ABCDEF-123456,CC,7/23/2020,($71.18),My Fav Coffee Shop,,Uncategorized,,
+ABCDEF-123456,CC,7/23/2020,($84.52),Phone Bill,,Phone,,
