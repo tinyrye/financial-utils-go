@@ -4,21 +4,25 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 
 	"github.com/tinyrye/financial-utils-go/models"
 	"github.com/tinyrye/financial-utils-go/csv"
 	"github.com/tinyrye/financial-utils-go/errors"
 )
 
-func ParseAndValidateCsv(institutionType string, filePath string) []models.AccountTransaction {
-	var transactionReader InstitutionTransactionReader
+type AccountImportContext struct {
+	AssumedAccount *models.Account
+}
 
-	if institutionType == "uwcu" {
-		transactionReader = NewUwcuTransactionReader()
-	} else {
-		log.Panicf("Unknown transaction file type %s", institutionType)
+func (c *AccountImportContext) fillInDefaults(transaction *models.AccountTransaction) {
+	if transaction.Account == nil {
+		transaction.Account = c.AssumedAccount
 	}
+}
+
+func ParseAndValidateCsv(institutionType string, filePath string, importContext *AccountImportContext) []models.AccountTransaction {
+	transactionReader, readerErr := NewInstitutionTransactionReader(institutionType, "csv")
+	errors.PanicIf(readerErr, "NewInstitutionTransactionReader")
 
 	csvDataSet, csvFileErr := csv.ReadDataSet(filePath)
 	errors.PanicIf(csvFileErr, "CSV File Reading")
@@ -27,6 +31,7 @@ func ParseAndValidateCsv(institutionType string, filePath string) []models.Accou
 	csvDataSet.ForEachRow(func(row map[string]string) {
 		transaction, transactionConversionErr := transactionReader.ConvertFromTransactionExport(row)
 		errors.PanicIf(transactionConversionErr, fmt.Sprintf("Converting transaction: %s", row))
+		importContext.fillInDefaults(transaction)
 		transactions = append(transactions, *transaction)
 	})
 
